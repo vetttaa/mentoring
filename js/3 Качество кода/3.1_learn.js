@@ -1,4 +1,4 @@
-//!Полифил at
+//Полифил at
 
 const num = [1, 2, 3]
 const food = ['pasta', 'chicken', 'cheese']

@@ -1,4 +1,4 @@
-//!Полифил map
+//Полифил map
 
 module.exports = function () {
     if(!Array.prototype.myMap) {
