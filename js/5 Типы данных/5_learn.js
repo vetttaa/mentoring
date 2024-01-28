@@ -1,6 +1,6 @@
 // Числа
 
-  /*function twoSum () {
+/*function twoSum () {
     let a = +prompt('a', '')
     let b = +prompt('b', '')
     let result = a + b
@@ -147,7 +147,6 @@ alert( sumInput() );*/
 
 }*/
 
-
 /*let arr = [5, 2, 1, -10, 8];
 
 arr.sort((a, b) => b - a);
@@ -264,9 +263,25 @@ function groupById(array) {
 // Методы массивов
 
 // Перебираемые объекты
-// Map и Set
-// WeakMap и WeakSet
-// Object.keys, values, entries
-// Деструктурирующее присваивание
-// Дата и время
-// Формат JSON, метод toJSON
+
+let range = {
+  from: 1,
+  to: 5,
+};
+
+range[Symbol.iterator] = function () {
+  return {
+    current: this.from,
+    last: this.to,
+    next() {
+      if (this.current <= this.last) {
+        return { done: false, value: this.current++ };
+      } else {
+        return { done: true };
+      }
+    },
+  };
+};
+for (let num of range) {
+  console.log(num);
+}
