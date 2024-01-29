@@ -28,8 +28,8 @@ class Spacecraft {
     console.log(`Уровень топлива ${this.fuelLevel}`);
   }
   refuel(amount) {
-    this.fuelLevel > 100
-      ? сonsole.log(`Уровень топлива превышен`)
+    this.fuelLevel >= 100
+      ? console.log(`Уровень топлива превышен`)
       : (this.fuelLevel += amount);
   }
 }
@@ -71,36 +71,35 @@ class MissionControl {
     this.spacecraft.fuelLevel > 0
       ? this.spacecraft.launch()
       : console.log(`Недостаточно топлива ${this.spacecraft.fuelLevel}`);
-      this.progress = Math.min(this.progress + 25, 100)
+    this.progress = Math.min(this.progress + 25, 100);
   }
   deployMarsRover(x, y, z) {
     this.location = { x, y, z };
     console.log(
       `Марсоход расположился на поверхности с координатами ${x},${y}, ${z}`
     );
-    this.progress = Math.min(this.progress + 25, 100)
+    this.progress = Math.min(this.progress + 25, 100);
   }
   coordinateMission(direction) {
     this.marsRover.move(direction);
-    this.launchDate;
-    this.missionName;
-    this.progress = Math.min(this.progress + 25, 100)
+    this.launchDate = new Date();
+    this.missionName = `Миссия ${this.missionName} началась`;
+    this.progress = Math.min(this.progress + 25, 100);
   }
   monitorMissionProgress() {
     console.log(`Прогресс миссии: ${this.progress}%`);
   }
 }
 
-const spacecraft = new Spacecraft("Enterprise", "Plasma", "Mars");
-const marsRover = new MarsRover("Curiosity", "Autonomous Navigation System");
+const spacecraft = new Spacecraft("Марсоход", "Бензин", "Mars");
+const marsRover = new MarsRover("Марсоход M1", "Навигационная система");
 const missionControl = new MissionControl(
-  "Mission 1",
+  "марсоход",
   new Date(),
   spacecraft,
   marsRover
-);
-
+)
 missionControl.initiateLaunch();
-missionControl.deployMarsRover(10, 20, 30);
-missionControl.coordinateMission(DIRECTIONS.EAST);
+missionControl.deployMarsRover(1, 2, 3);
+missionControl.coordinateMission(DIRECTIONS.NORTH);
 missionControl.monitorMissionProgress();
