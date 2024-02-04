@@ -8,4 +8,5 @@ const myArr = [1, 2, 3];
 const {0: one, 1: two, 2: three} = myArr
 
 //false
-const [] = obj
+const arr = Object.values(obj);
+const [name] = arr

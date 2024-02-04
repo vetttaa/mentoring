@@ -1,4 +1,5 @@
 import { DIRECTIONS } from "./directions";
+import { DESTINATION } from "./directions";
 
 class Spacecraft {
   constructor(name, typeFuel, destination) {
@@ -12,16 +13,19 @@ class Spacecraft {
     if (this.fuelLevel > 0) {
       this.isInSpace = true;
       this.fuelLevel -= 10;
-      console.log(`Корабль взлетел`);
+      console.log(`Корабль взлетел. Количество топлива ${this.fuelLevel}`);
     } else {
-      console.log(`Недостаточно топлива ${this.fuelLevel}`);
+      console.log(`Недостаточно топлива ${this.fuelLevel}. Необходимо еще ${10 - this.fuelLevel}`);
     }
   }
   land(destination) {
-    if (this.fuelLevel > 0 && destination === "Mars") {
+    let fuelCost = DESTINATION[destination];
+    if(this.fuelLevel >= fuelCost) {
       this.isInSpace = false;
-      this.fuelLevel -= 10;
-      console.log(`Корабль приземлился`);
+      this.fuelLevel -= fuelCost;
+      console.log(`Корабль приземлился. Количество топлива ${this.fuelLevel}`);
+    } else {
+      console.log(`Недостаточно топлива ${this.fuelLevel}. Необходимо еще ${fuelCost - this.fuelLevel}`);
     }
   }
   checkFuel() {
@@ -29,7 +33,7 @@ class Spacecraft {
   }
   refuel(amount) {
     this.fuelLevel >= 100
-      ? console.log(`Уровень топлива превышен`)
+      ? console.log(`Уровень топлива превышен ${this.fuelLevel}`)
       : (this.fuelLevel += amount);
   }
 }
@@ -66,25 +70,42 @@ class MissionControl {
     this.marsRover = marsRover;
     this.location = { x: 0, y: 0, z: 0 };
     this.progress = 0;
+    this.addedProgress = 25;
   }
   initiateLaunch() {
     this.spacecraft.fuelLevel > 0
       ? this.spacecraft.launch()
       : console.log(`Недостаточно топлива ${this.spacecraft.fuelLevel}`);
-    this.progress = Math.min(this.progress + 25, 100);
+      
+      if (this.progress + addedProgress <= 100) {
+        this.progress += addedProgress;
+      } else {
+        this.progress = 100;
+      }
   }
   deployMarsRover(x, y, z) {
-    this.location = { x, y, z };
+    this.location.x = x;
+    this.location.y = y;
+    this.location.z = z;
     console.log(
       `Марсоход расположился на поверхности с координатами ${x},${y}, ${z}`
     );
-    this.progress = Math.min(this.progress + 25, 100);
+    if (this.progress + addedProgress <= 100) {
+      this.progress += addedProgress;
+    } else {
+      this.progress = 100;
+    }
   }
   coordinateMission(direction) {
     this.marsRover.move(direction);
     this.launchDate = new Date();
     this.missionName = `Миссия ${this.missionName} началась`;
-    this.progress = Math.min(this.progress + 25, 100);
+
+    if (this.progress + addedProgress <= 100) {
+      this.progress += addedProgress;
+    } else {
+      this.progress = 100;
+    }
   }
   monitorMissionProgress() {
     console.log(`Прогресс миссии: ${this.progress}%`);
@@ -98,7 +119,7 @@ const missionControl = new MissionControl(
   new Date(),
   spacecraft,
   marsRover
-)
+);
 missionControl.initiateLaunch();
 missionControl.deployMarsRover(1, 2, 3);
 missionControl.coordinateMission(DIRECTIONS.NORTH);
