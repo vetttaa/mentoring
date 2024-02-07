@@ -48,7 +48,7 @@ Spacecraft.prototype.refuel = function (amount) {
     : (this.fuelLevel += amount);
 };
 
-function MarsRover() {
+function MarsRover(model, navigationSystem) {
   this.model = model;
   this.navigationSystem = navigationSystem;
   this.dataCollected = [];
@@ -125,11 +125,9 @@ MissionControl.prototype.monitorMissionProgress = function () {
   console.log(`Прогресс миссии: ${this.progress}%`);
 };
 
-
 const missionControl = new MissionControl(
   "Миссия 1",
   new Date(),
   new Spacecraft("Марсоход", "Бензин", "Mars"),
   new MarsRover("Марсоход M1", "Навигационная система")
-)
-
+);
