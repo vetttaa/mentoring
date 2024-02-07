@@ -1,10 +1,11 @@
 import { DIRECTIONS } from "./directions";
 import { DESTINATION } from "./directions";
+import { FUEL_TYPES } from "./directions";
 
 class Spacecraft {
   constructor(name, typeFuel, destination) {
     this.name = name;
-    this.fuelType = typeFuel;
+    this.fuelType = FUEL_TYPES[typeFuel];
     this.fuelLevel = 100;
     this.isInSpace = true;
     this.destination = destination;
@@ -77,8 +78,8 @@ class MissionControl {
       ? this.spacecraft.launch()
       : console.log(`Недостаточно топлива ${this.spacecraft.fuelLevel}`);
       
-      if (this.progress + addedProgress <= 100) {
-        this.progress += addedProgress;
+      if (this.progress + this.addedProgress <= 100) {
+        this.progress += this.addedProgress;
       } else {
         this.progress = 100;
       }
@@ -112,7 +113,7 @@ class MissionControl {
   }
 }
 
-const spacecraft = new Spacecraft("Марсоход", "Бензин", "Mars");
+const spacecraft = new Spacecraft("Марсоход", "GASOLINE", "Mars");
 const marsRover = new MarsRover("Марсоход M1", "Навигационная система");
 const missionControl = new MissionControl(
   "марсоход",

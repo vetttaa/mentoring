@@ -1,9 +1,10 @@
 import { DESTINATION } from "./MarsRover.js";
 import { DIRECTIONS } from "./MarsRover.js";
+import { FUEL_TYPES } from "./MarsRover.js";
 
 function Spacecraft(name, typeFuel, destination) {
   this.name = name;
-  this.fuelType = typeFuel;
+  this.fuelType = FUEL_TYPES[typeFuel];
   this.fuelLevel = 100;
   this.isInSpace = true;
   this.destination = destination;

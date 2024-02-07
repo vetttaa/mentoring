@@ -5,7 +5,10 @@ export const DIRECTIONS = {
   WEST: "W",
 };
 
-export const FUEL = {};
+export const FUEL_TYPES = {
+  GASOLINE: "Бензин",
+  DIESEL: "Дизель",
+};
 
 export const DESTINATION = {
   Mars: 10,
