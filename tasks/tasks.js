@@ -4,9 +4,6 @@ const obj = {
         if (hint === 'string') {
             return this.name;
         }
-    },
-    toString() {
-        return this.name;
     }
 }
 //2 false
