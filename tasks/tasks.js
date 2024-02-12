@@ -2,11 +2,15 @@ const obj = {
     name: 'John',
     [Symbol.toPrimitive](hint) {
         if (hint === 'string') {
-            return 'John';
+            return this.name;
         }
+    },
+    toString() {
+        return this.name;
     }
 }
 //2 false
+const arr = [obj]
 const [name] = arr
 
 
