@@ -30,19 +30,19 @@ console.log(Aboba.prototype.constructor === Aboba);
 // Baza ----------------------------------------------------
 let aboba = { name: "aboba" };
 console.log(aboba.prototype); // undefined
-console.log(aboba.__proto__); // {}
+console.log(aboba.__proto__); // Obkect.prototype
 
 let numbers = [1, 2, 3];
 console.log(numbers.prototype); //undefined
-console.log(numbers.__proto__); //[]
+console.log(numbers.__proto__); //Array.prototype
 
 class MaxLox {}
 console.log(MaxLox.prototype); //{}
-console.log(MaxLox.__proto__); // f() {}
+console.log(MaxLox.__proto__); // Function.prototype
 
 let abobus = new MaxLox();
 console.log(abobus.prototype); //undefined
-console.log(abobus.__proto__); //{constructor: ƒ}
+console.log(abobus.__proto__); //MaxLox.prototype
 
 let abobus1 = new MaxLox();
 let abobus2 = new MaxLox();
@@ -52,7 +52,7 @@ let Component2 = (props) => {
   return "I dont know Prototype";
 };
 console.log(Component2.prototype); //undefined
-console.log(Component2.__proto__); //f(){}
+console.log(Component2.__proto__); //Function.prototype
 
 class Aboba {
   constructor(name = "aboba") {
@@ -61,8 +61,8 @@ class Aboba {
 }
 
 let amogus = new Aboba();
-console.log(amogus.__proto__.__proto__ === "Чему"); //{}
-console.log(amogus.__proto__.constructor.__proto__ === "Чему"); //f(){}
+console.log(amogus.__proto__.__proto__ === "Чему"); //Object.prototype
+console.log(amogus.__proto__.constructor.__proto__ === "Чему"); //Function.prototype
 console.log(amogus.__proto__.__proto__.__proto__ === "Чему"); //null
 
 // Тестик для закрепления -----------------------------------------------
@@ -97,11 +97,11 @@ console.log(Hacker.__proto__ === Function.prototype); //true
 
 // 9
 function Aboba() {}
-console.log(Aboba.__proto__ === "Чему"); //f(){}
+console.log(Aboba.__proto__ === "Чему"); //Function.prototype
 
 // 10
 const count = 12;
-console.log(count.__proto__ === "Чему"); //{constructor}
+console.log(count.__proto__ === "Чему"); //Number.prototype
 
 
 
