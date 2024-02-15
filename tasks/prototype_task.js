@@ -38,10 +38,10 @@ console.log(numbers.__proto__); //[]
 
 class MaxLox {}
 console.log(MaxLox.prototype); //{}
-console.log(MaxLox.__proto__); // [Function]
+console.log(MaxLox.__proto__); // f() {}
 
 let abobus = new MaxLox();
-console.log(abobus.prototype); //{constructor: ƒ}
+console.log(abobus.prototype); //undefined
 console.log(abobus.__proto__); //{constructor: ƒ}
 
 let abobus1 = new MaxLox();
@@ -52,7 +52,7 @@ let Component2 = (props) => {
   return "I dont know Prototype";
 };
 console.log(Component2.prototype); //undefined
-console.log(Component2.__proto__); //f{}
+console.log(Component2.__proto__); //f(){}
 
 class Aboba {
   constructor(name = "aboba") {
@@ -62,7 +62,7 @@ class Aboba {
 
 let amogus = new Aboba();
 console.log(amogus.__proto__.__proto__ === "Чему"); //{}
-console.log(amogus.__proto__.constructor.__proto__ === "Чему"); //f{}
+console.log(amogus.__proto__.constructor.__proto__ === "Чему"); //f(){}
 console.log(amogus.__proto__.__proto__.__proto__ === "Чему"); //null
 
 // Тестик для закрепления -----------------------------------------------
