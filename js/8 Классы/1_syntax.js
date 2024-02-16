@@ -1,9 +1,8 @@
-; Класс Clock написан в функциональном стиле. Перепишите его, используя современный синтаксис классов.
+//Класс Clock написан в функциональном стиле. Перепишите его, используя современный синтаксис классов.
 class Clock {
     constructor({ template }) {
         this.template = template
     }
-}
 render() {
     let date = new Date()
     
@@ -31,7 +30,7 @@ stop() {
 start() {
     this.render();
     this.timer = setInterval(() => this.render(), 1000);
-}
+}}
 
 let clock = new Clock({ template: 'h:m:s' })
 clock.start()
