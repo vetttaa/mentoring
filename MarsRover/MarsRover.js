@@ -13,41 +13,53 @@ class General {
     console.log(`Уровень топлива ${this.fuelLevel}`);
   }
   refuel(amount) {
-    this.fuelLevel >=   100
-      ? console.log(`Уровень топлива превышен ${this.fuelLevel}`)
-      : (this.fuelLevel += amount);
+    if (this.fuelLevel + amount <= 100) {
+      this.fuelLevel += amount;
+    } else {
+      console.log(
+        `Уровень топлива превышен. Текущий уровень: ${this.fuelLevel}`
+      );
+    }
   }
 }
 
 class Spacecraft extends General {
   constructor(name, typeFuel, destination) {
-    super(name, FUEL_TYPES[typeFuel],   100, true);
+    super(name, FUEL_TYPES[typeFuel], 100, true);
     this.destination = destination;
   }
   launch() {
-    if (this.fuelLevel >  0) {
+    if (this.fuelLevel > 0) {
       this.isInSpace = true;
-      this.fuelLevel -=  10;
+      this.fuelLevel -= 10;
       console.log(`Корабль взлетел. Количество топлива ${this.fuelLevel}`);
     } else {
-      console.log(`Недостаточно топлива ${this.fuelLevel}. Необходимо еще ${10 - this.fuelLevel}`);
+      console.log(
+        `Недостаточно топлива ${this.fuelLevel}. Необходимо еще ${
+          10 - this.fuelLevel
+        }`
+      );
     }
   }
   land(destination) {
     let fuelCost = DESTINATION[destination];
-    if(this.fuelLevel >= fuelCost) {
+    if (this.fuelLevel >= fuelCost) {
       this.isInSpace = false;
       this.fuelLevel -= fuelCost;
       console.log(`Корабль приземлился. Количество топлива ${this.fuelLevel}`);
     } else {
-      console.log(`Недостаточно топлива ${this.fuelLevel}. Необходимо еще ${fuelCost - this.fuelLevel}`);
+      console.log(
+        `Недостаточно топлива ${this.fuelLevel}. Необходимо еще ${
+          fuelCost - this.fuelLevel
+        }`
+      );
     }
   }
 }
 
 class MarsRover extends General {
   constructor(model, navigationSystem) {
-    super(model, 'ELECTRIC',   100, false);
+    super(model, "ELECTRIC", 100, false);
     this.navigationSystem = navigationSystem;
     this.dataCollected = [];
     this.direction = DIRECTIONS.NORTH;
@@ -75,20 +87,20 @@ class MissionControl {
     this.launchDate = launchDate;
     this.spacecraft = spacecraft;
     this.marsRover = marsRover;
-    this.location = { x:  0, y:  0, z:  0 };
-    this.progress =  0;
-    this.addedProgress =  25;
+    this.location = { x: 0, y: 0, z: 0 };
+    this.progress = 0;
+    this.addedProgress = 25;
   }
   initiateLaunch() {
-    this.spacecraft.fuelLevel >  0
+    this.spacecraft.fuelLevel > 0
       ? this.spacecraft.launch()
       : console.log(`Недостаточно топлива ${this.spacecraft.fuelLevel}`);
-      
-      if (this.progress + this.addedProgress <=  100) {
-        this.progress += this.addedProgress;
-      } else {
-        this.progress =  100;
-      }
+
+    if (this.progress + this.addedProgress <= 100) {
+      this.progress += this.addedProgress;
+    } else {
+      this.progress = 100;
+    }
   }
   deployMarsRover(x, y, z) {
     this.location.x = x;
@@ -97,10 +109,10 @@ class MissionControl {
     console.log(
       `Марсоход расположился на поверхности с координатами ${x},${y}, ${z}`
     );
-    if (this.progress + this.addedProgress <=  100) {
+    if (this.progress + this.addedProgress <= 100) {
       this.progress += this.addedProgress;
     } else {
-      this.progress =  100;
+      this.progress = 100;
     }
   }
   coordinateMission(direction) {
@@ -108,10 +120,10 @@ class MissionControl {
     this.launchDate = new Date();
     this.missionName = `Миссия ${this.missionName} началась`;
 
-    if (this.progress + this.addedProgress <=  100) {
+    if (this.progress + this.addedProgress <= 100) {
       this.progress += this.addedProgress;
     } else {
-      this.progress =  100;
+      this.progress = 100;
     }
   }
   monitorMissionProgress() {
@@ -128,6 +140,6 @@ const missionControl = new MissionControl(
   marsRover
 );
 missionControl.initiateLaunch();
-missionControl.deployMarsRover(1,  2,  3);
+missionControl.deployMarsRover(1, 2, 3);
 missionControl.coordinateMission(DIRECTIONS.NORTH);
 missionControl.monitorMissionProgress();
