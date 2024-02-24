@@ -59,7 +59,7 @@ class Spacecraft extends General {
 
 class MarsRover extends General {
   constructor(model, navigationSystem) {
-    super(model, "ELECTRIC", 100, false);
+    super(model, FUEL_TYPES["GASOLINE"] ,100, false);
     this.navigationSystem = navigationSystem;
     this.dataCollected = [];
     this.direction = DIRECTIONS.NORTH;
