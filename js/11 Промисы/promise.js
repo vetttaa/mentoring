@@ -1,3 +1,89 @@
+class Promise {
+  constructor(executor) {
+    this.state = PENDING;
+    this.result = undefined;
+
+    const resolve = (value) => {
+      if (this.state === PENDING) {
+        this.state = FULFILLED;
+        this.result = value;
+      }
+    };
+    const reject = (error) => {
+      if (this.state === PENDING) {
+        this.state = REJECTED;
+        this.result = error;
+      }
+    };
+    try {
+      executor(resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
+  }
+  then(onFullfield, onRejected) {
+    if (onFullfield && this.state === FULFILLED) {
+      onFullfield(this.result);
+    }
+    if (onRejected && this.state === REJECTED) {
+      onRejected(this.result);
+    }
+  }
+}
+
+// 1. Конструктор на вход которого записывается callback
+// в свойствах котого две функции resolve - успешно, reject - ошибка,
+// которые можно выполнить и изменить состояние
+console.log(1);
+const promise1 = new Promise((resolve, reject) => {
+  console.log(2);
+  resolve("success");
+});
+console.log(3);
+console.log(promise); //1 2 3 Promise {<fulfilled>: 'success'}
+
+// 2. Используется для отложенного кода
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve("success"), 1000);
+});
+console.log(promise2); //Promise{<pending>}
+
+setTimeout(() => console.log(promise2), 2000); //Promise{<fulfilled>: 'success'}
+
+// 3. Resolve, reject можно вызвать только один раз
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(() => reject("error"), 2000);
+  setTimeout(() => resolve("success2"), 1000);
+  resolve("success");
+});
+console.log(promise3); //Promise {<fulfilled>: 'success'}
+setTimeout(() => console.log(promise3), 3000); //Promise {<fulfilled>: 'success'}
+
+const promise33 = new Promise((resolve, reject) => {
+  setTimeout(() => reject("error"), 2000);
+  setTimeout(() => resolve("success2"), 1000);
+});
+console.log(promise33); //Promise {<pending>}
+setTimeout(() => console.log(promise33), 3000); //Promise {<fulfilled>: 'success2'}
+
+//4. Чтобы перехватить знчение используется метод then
+
+const promise4 = new Promise((resolve, reject) => {
+  resolve("success2")
+}).then((value) => {
+  console.log(value);//success2
+});
+
+const promise44 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("success2")
+  }, 100);
+}).then((value) => {
+  console.log(value);//undefined success2
+});
+
+//-----------------
+
 let promise = new Promise(function (resolve, reject) {
   resolve(1);
 
@@ -97,11 +183,11 @@ function fetchUserGames(id) {
 }
 function run() {
   fetchUserData()
-  .then((userData) => {
-    return fetchUserGames(userData.id);
-  })
-  .then((userGames) => {
-    console.log(userGames);
-  });
+    .then((userData) => {
+      return fetchUserGames(userData.id);
+    })
+    .then((userGames) => {
+      console.log(userGames);
+    });
 }
-run()
+run();
