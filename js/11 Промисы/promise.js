@@ -161,6 +161,16 @@ const promise9 = new Promise((resolve, reject) => {
 })
 console.log(promise9); //7
 
+//10 можно возвращать в then новый промис и получать успешный результат
+const promise10 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+}).then((value) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(value + 1), 1000);
+  })
+}).then((value) => {
+  console.log(value); //2
+})
 
 
 //-----------------
