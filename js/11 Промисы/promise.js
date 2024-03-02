@@ -29,6 +29,10 @@ class Promise {
       onRejected(this.result);
     }
   }
+
+  catch(onRejected) {
+    return this.then(null, onRejected);
+  }
 }
 
 // 1. Конструктор на вход которого записывается callback
@@ -42,6 +46,9 @@ const promise1 = new Promise((resolve, reject) => {
 console.log(3);
 console.log(promise); //1 2 3 Promise {<fulfilled>: 'success'}
 
+
+
+
 // 2. Используется для отложенного кода
 const promise2 = new Promise((resolve, reject) => {
   setTimeout(() => resolve("success"), 1000);
@@ -49,6 +56,9 @@ const promise2 = new Promise((resolve, reject) => {
 console.log(promise2); //Promise{<pending>}
 
 setTimeout(() => console.log(promise2), 2000); //Promise{<fulfilled>: 'success'}
+
+
+
 
 // 3. Resolve, reject можно вызвать только один раз
 const promise3 = new Promise((resolve, reject) => {
@@ -66,21 +76,92 @@ const promise33 = new Promise((resolve, reject) => {
 console.log(promise33); //Promise {<pending>}
 setTimeout(() => console.log(promise33), 3000); //Promise {<fulfilled>: 'success2'}
 
+
+
+
 //4. Чтобы перехватить знчение используется метод then
 
 const promise4 = new Promise((resolve, reject) => {
-  resolve("success2")
+  resolve("success2");
 }).then((value) => {
-  console.log(value);//success2
+  console.log(value); //success2
 });
 
 const promise44 = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve("success2")
+    resolve("success2");
   }, 100);
 }).then((value) => {
-  console.log(value);//undefined success2
+  console.log(value); //undefined success2
 });
+
+
+
+//5. Чтобы перехватить ошибку используем then
+const promise5 = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error("Whoops!")), 1000);
+}).then(
+  (value) => {
+    console.log(value);
+  },
+  (error) => {
+    console.log(11, error); //Error
+  }
+);
+
+
+
+//6. Чтобы перехватить ошибку используем catch
+const promise6 = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error("Whoops!")), 1000);
+})
+  .then((value) => {
+    console.log(value);
+  })
+  .catch((error) => {
+    console.log(error); //Error
+  });
+
+
+
+
+//7 Можно вызвать then на одном промисе много раз и получить один результат
+const promice7 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+});
+promice7.then((value) => console.log(value)); //1
+promice7.then((value) => console.log(value)); //1
+promice7.then((value) => console.log(value)); //1
+
+
+
+
+//8 ЕСли вызвать then когда состояние уже установлено все арвно получим значение
+const promice77 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+});
+setTimeout(() => {
+  promice77.then((value) => console.log(value)); //1
+  promice77.then((value) => console.log(value)); //1
+  promice77.then((value) => console.log(value)); //1
+}, 2000);
+
+
+
+
+//9. Цепочки промисов
+const promise9 = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+}).then((value) => {
+  return value + 1;
+}).then((value) => {
+  return value + 2;
+}).then((value) => {
+  return value + 3;
+})
+console.log(promise9); //7
+
+
 
 //-----------------
 
