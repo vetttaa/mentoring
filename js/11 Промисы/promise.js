@@ -52,7 +52,8 @@ const promise2 = new Promise((resolve, reject) => {
 });
 console.log(promise2); //Promise{<pending>}
 
-setTimeout(() => console.log(promise2), 2000); //Promise{<fulfilled>: 'success'}
+setTimeout(() => console.log(promise2), 2000); 
+//Promise{<fulfilled>: 'success'}
 
 // 3. Resolve, reject можно вызвать только один раз
 const promise3 = new Promise((resolve, reject) => {
@@ -61,14 +62,16 @@ const promise3 = new Promise((resolve, reject) => {
   resolve("success");
 });
 console.log(promise3); //Promise {<fulfilled>: 'success'}
-setTimeout(() => console.log(promise3), 3000); //Promise {<fulfilled>: 'success'}
+setTimeout(() => console.log(promise3), 3000); 
+//Promise {<fulfilled>: 'success'}
 
 const promise33 = new Promise((resolve, reject) => {
   setTimeout(() => reject("error"), 2000);
   setTimeout(() => resolve("success2"), 1000);
 });
 console.log(promise33); //Promise {<pending>}
-setTimeout(() => console.log(promise33), 3000); //Promise {<fulfilled>: 'success2'}
+setTimeout(() => console.log(promise33), 3000); 
+//Promise {<fulfilled>: 'success2'}
 
 //4. Чтобы перехватить знчение используется метод then
 
@@ -109,7 +112,8 @@ const promise6 = new Promise((resolve, reject) => {
     console.log(error); //Error
   });
 
-//7 Можно вызвать then на одном промисе много раз и получить один результат
+//7 Можно вызвать then на одном промисе много раз 
+//и получить один результат
 const promice7 = new Promise((resolve, reject) => {
   setTimeout(() => resolve(1), 1000);
 });
@@ -117,7 +121,8 @@ promice7.then((value) => console.log(value)); //1
 promice7.then((value) => console.log(value)); //1
 promice7.then((value) => console.log(value)); //1
 
-//8 ЕСли вызвать then когда состояние уже установлено все арвно получим значение
+//8 ЕСли вызвать then когда состояние уже установлено 
+//все арвно получим значение
 const promice77 = new Promise((resolve, reject) => {
   setTimeout(() => resolve(1), 1000);
 });
@@ -170,7 +175,8 @@ let promise = new Promise(function (resolve, reject) {
 
 promise.then(alert); //1
 
-//Функция delay(ms) должна возвращать промис, который перейдёт в состояние «выполнен» через ms миллисекунд, так чтобы мы могли добавить к нему .then
+//Функция delay(ms) должна возвращать промис, который перейдёт в состояние «выполнен» через ms миллисекунд,
+// так чтобы мы могли добавить к нему .then
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
