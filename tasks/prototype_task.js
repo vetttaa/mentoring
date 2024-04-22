@@ -30,7 +30,7 @@ console.log(Aboba.prototype.constructor === Aboba);
 // Baza ----------------------------------------------------
 let aboba = { name: "aboba" };
 console.log(aboba.prototype); // undefined
-console.log(aboba.__proto__); // Obkect.prototype
+console.log(aboba.__proto__); // Object.prototype
 
 let numbers = [1, 2, 3];
 console.log(numbers.prototype); //undefined
