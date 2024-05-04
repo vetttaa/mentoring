@@ -109,3 +109,46 @@ const PersonProxy2 = new Proxy(Person, {
   const p2 = new PersonProxy2("Maxim", 30);
   //p2 Proxy{name: "Maxim", age: 30}
 
+
+  // создайте ловушку, которая делает доп. действия при записи и чтении
+
+const person2 = {
+  name: 'Vi',
+}
+
+const proxyPerson = new Proxy(person2, {
+  get(target, prop) {
+    console.log(`Getting prop ${prop}`)
+    return target[prop]
+  },
+  set(target, prop, value) {
+    console.log(`Setting prop ${prop} to ${value}`)
+    target[prop] = value
+  }
+});
+
+console.log(proxyPerson.name)//get
+proxyPerson.name = 'Veta'//set
+
+
+// создайте ловушку, которая пересчитывает полное имя при изменении фамилии или имени
+
+const person3 = {
+  firstName: 'Ivan',
+  lastName: 'Ivanov'
+}
+
+let proxyPerson = new Proxy(person3, {
+  set(target, prop, value) {
+    if (prop === 'firstName' || prop === 'lastName') {
+      target[prop] = value
+      target.fullName = `${target.firstName} ${target.lastName}`
+    }
+    return true
+  }
+})
+proxyPerson.firstName = 'Petr'
+proxyPerson.lastName = 'Petrov'
+console.log(proxyPerson.fullName)//Petr Petrov
+
+
